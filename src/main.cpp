@@ -8,8 +8,6 @@ enum ERROR_TYPE {
 };
 
 bool alive = true;
-static double velBase = 0.0;
-
 
 static double velBase = 0.0;
 static int errorType = 0;
