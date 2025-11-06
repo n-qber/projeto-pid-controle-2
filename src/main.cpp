@@ -8,12 +8,25 @@ enum ERROR_TYPE {
 };
 
 bool alive = true;
+static double velBase = 0.0;
+
 
 static double velBase = 0.0;
 static int errorType = 0;
 static int debug_var = 5;
 static float distance_error = 0;
 static float angle_error = 0;
+
+static const double MAX_PID = 100;
+static const double MIN_PID = -MAX_PID;
+
+static struct {
+	double leftFront;
+	double rightFront;
+	double leftBack;
+	double rightBack;
+} wheelsSpeed = { 0 };
+
 
 void initHardwareComponents(){
 	cout << "[*] initHardwareComponents()" << endl;
@@ -29,7 +42,7 @@ bool interLocking(){
 	return result;
 };
 
-void fetchError(){
+void fetchErrors(){
 	cout << "[*] fetchError()" << endl;
 };
 
@@ -52,28 +65,45 @@ float mergeErrors(){
 	}
 };
 
-void calculatePID(){
+double calculatePID(float error){
 	cout << "[*] calculatePID()" << endl;
+
+	// TODO
+	// clamp value
+	return 42.4;
 };
 
-void calculateWheelsSpeed(){
-
+void calculateWheelsSpeed(float error, double& left, double& right){
 	cout << "[*] calculateWheelsSpeed()" << endl;
+
+	double pidValue = calculatePID(error);
+	double K = 1;
+
+	left = velBase + K * pidValue;
+	right = velBase - K * pidValue;
+
+	// (talvez) precisamos saber as distâncias entre as rodas
 };
 
-void setWheelsSpeed(){
-	cout << "[*] setWheelsSpeed()" << endl;
+void setWheelsLinearSpeed(double left, double right){
+	cout << "[*] setWheelsLinearSpeed(" << left << ", " << right << ")" << endl;
+
+	// TODO ENVIAR PARA A RODA DE VERDADE
+	wheelsSpeed.leftFront = left;
+	wheelsSpeed.leftBack = left;
+
+	wheelsSpeed.rightFront = right;
+	wheelsSpeed.rightBack = right;
+
 };
 
 void stopWheels(){
 	cout << "[*] stopWheels()" << endl;
+	setWheelsLinearSpeed(0, 0);
 };
-
-
 
 int main()
 {
-	float error = 0.0;
 	cout << "[*] Starting system..." << endl << endl;
 	cout << "Digite a velocidade desejada para o AGV (m/s): " << endl;
 	cin >> velBase;
@@ -114,7 +144,7 @@ int main()
 
 
 
-		setWheelsSpeed();
+		//setWheelsLinearSpeed(wheelsSpeed.leftFront, wheelsSpeed.rightFront);
 
 		// M3
 		try {
@@ -123,11 +153,12 @@ int main()
 			// possívels soluções:
 			// 	comunicação de erros assíncrona
 			// 	gpio por interrupt do sistema
-			fetchError();
+			fetchErrors();
+			float error = mergeErrors();
 
-			error = mergeErrors();
-			calculatePID();
-			calculateWheelsSpeed();
+			double left = 0, right = 0;
+			calculateWheelsSpeed(error, left, right);
+			setWheelsLinearSpeed(left, right);
 
 		} catch (...) { // in case of unexpected/unkown error
 			goto halt;
@@ -144,3 +175,6 @@ halt:
 	stopWheels();
 	cout << "[*] I'm going to sleep..." << endl;
 }
+
+// ver visão computacional como ta trazendo os dados
+// merge de erros
