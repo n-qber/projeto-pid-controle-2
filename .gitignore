@@ -47,3 +47,16 @@ CMakeFiles/*
 cmake_install.cmake
 Makefile
 wall-e
+
+# build gerou esses
+ALL_BUILD.vcxproj
+ALL_BUILD.vcxproj.filters
+wall-e.sln
+wall-e.vcxproj
+wall-e.vcxproj.filters
+ZERO_CHECK.vcxproj
+ZERO_CHECK.vcxproj.filters
+
+# tirar a pasta
+wall-e.dir/
+x64/

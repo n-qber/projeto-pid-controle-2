@@ -16,3 +16,5 @@ double g_resultant_error;
 double g_kp, g_ki, g_kd;
 double g_control_signal;
 double g_vel_base;
+double g_max_vel;
+WheelsSpeed wheelsSpeed;

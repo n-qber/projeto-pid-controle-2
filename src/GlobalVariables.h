@@ -42,4 +42,17 @@ extern double g_control_signal;
 // Base velocity for the AGV
 extern double g_vel_base;
 
+// Wheels velocity
+typedef struct WheelsSpeed {
+	double leftFront;
+	double rightFront;
+	double leftBack;
+	double rightBack;
+} WheelsSpeed;
+
+extern WheelsSpeed wheelsSpeed;
+
+// Maximum velocity
+extern double g_max_vel;
+
 #endif // GLOBALVARIABLES_H

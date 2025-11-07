@@ -22,6 +22,10 @@ void ServiceUserInput::read_user_input() {
     cout << "Digite a velocidade desejada para o AGV (m/s): ";
     cin >> g_vel_base;
 
+    // Receive maximum velocity base input
+    cout << "Digite a velocidade maxima do AGV (m/s): ";
+    cin >> g_max_vel;
+
     // Receive error mode input
     cout << endl << "Selecione o modo de erro: 1, 2 ou 3." << endl;
 
