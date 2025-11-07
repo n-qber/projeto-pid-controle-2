@@ -17,6 +17,9 @@ extern double g_reference_signal;
 // User input
 extern double g_user_input;
 
+// User period input
+extern double g_period;
+
 // Interlock status
 extern bool g_interlock_status;
 
@@ -35,5 +38,8 @@ extern double g_kp, g_ki, g_kd;
 
 // Control signal
 extern double g_control_signal;
+
+// Base velocity for the AGV
+extern double g_vel_base;
 
 #endif // GLOBALVARIABLES_H

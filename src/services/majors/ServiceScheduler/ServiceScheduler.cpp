@@ -1,4 +1,6 @@
 #include "ServiceScheduler.h"
+#include <iostream>
+using namespace std;
 
 /**
  * @brief Runs the system's main execution loop.
@@ -21,6 +23,7 @@ void ServiceScheduler::run() {
         }
 
         // 2. Run the main control loop operation
+        cout << "Executando operacao..." << endl;
         serviceOperation.operate();
     }
 }
